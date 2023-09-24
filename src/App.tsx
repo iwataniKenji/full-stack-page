@@ -1,5 +1,7 @@
+import { MainPage } from "./components/MainPage";
+
 function App() {
-  return <h1>teste</h1>;
+  return <MainPage />;
 }
 
 export default App;
