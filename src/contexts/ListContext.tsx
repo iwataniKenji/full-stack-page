@@ -13,8 +13,8 @@ type ListStatus = {
 type ListContext = {
   list: List;
   setList: (value: List) => void;
-  listFilter: any;
-  setListFilter: (value: any) => void;
+  listFilter: string;
+  setListFilter: (value: string) => void;
   listStatus: ListStatus;
   setListStatus: (value: ListStatus) => void;
 };
@@ -30,7 +30,7 @@ export function ListContextProvider(props: ListContextProviderProps) {
     data: [],
     total: 0,
   });
-  const [listFilter, setListFilter] = useState<any>();
+  const [listFilter, setListFilter] = useState<string>("");
   const [listStatus, setListStatus] = useState<ListStatus>({
     errorMessage: undefined,
     isLoading: false,
