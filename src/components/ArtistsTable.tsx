@@ -16,10 +16,12 @@ export function ArtistsTable() {
   const { artists, artistsTotal, isLoading } = useArtistList();
 
   const rows = useMemo(() => {
-    if (!artists) {
+    if (artists.length === 0) {
       return (
         <tr>
-          <td colSpan={2}>Lista vazia</td>
+          <td style={tableBodyCellStyle} colSpan={2}>
+            Lista vazia
+          </td>
         </tr>
       );
     }
