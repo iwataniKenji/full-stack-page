@@ -1,4 +1,4 @@
-import { MoviesTable } from "./MoviesTable";
+import { ArtistsTable } from "./ArtistsTable";
 import { useContext } from "react";
 import { ListContext } from "../contexts/ListContext";
 
@@ -39,7 +39,7 @@ export function MainPage() {
               Buscar
             </button>
           </div>
-          <MoviesTable />
+          <ArtistsTable />
         </div>
       </div>
     </div>

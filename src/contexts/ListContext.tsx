@@ -5,18 +5,13 @@ type List = {
   total: number;
 };
 
-type ListStatus = {
-  errorMessage?: string;
-  isLoading: boolean;
-};
-
 type ListContext = {
   list: List;
   setList: (value: List) => void;
   listFilter: string;
   setListFilter: (value: string) => void;
-  listStatus: ListStatus;
-  setListStatus: (value: ListStatus) => void;
+  isLoading: boolean;
+  setIsLoading: (value: boolean) => void;
 };
 
 type ListContextProviderProps = {
@@ -31,18 +26,15 @@ export function ListContextProvider(props: ListContextProviderProps) {
     total: 0,
   });
   const [listFilter, setListFilter] = useState<string>("");
-  const [listStatus, setListStatus] = useState<ListStatus>({
-    errorMessage: undefined,
-    isLoading: false,
-  });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const value = {
     list,
     setList,
     listFilter,
     setListFilter,
-    listStatus,
-    setListStatus,
+    isLoading,
+    setIsLoading,
   };
 
   return (
