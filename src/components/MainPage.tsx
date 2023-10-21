@@ -1,6 +1,5 @@
 import { MoviesTable } from "./MoviesTable";
 import { useContext } from "react";
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { ListContext } from "../contexts/ListContext";
 
 export function MainPage() {
@@ -11,45 +10,38 @@ export function MainPage() {
   };
 
   return (
-    <Box
-      sx={{
+    <div
+      style={{
         backgroundColor: "background.default",
       }}
     >
-      <Container maxWidth="xl">
-        <Box
-          sx={{
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div
+          style={{
             display: "flex",
             flexDirection: "column",
-            gap: 4,
-            mt: 4,
+            gap: "2rem",
+            marginTop: "2rem",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Typography sx={{ fontSize: 32, width: "100%" }}>
-              Procure por um filme
-            </Typography>
-            <TextField
-              sx={{ width: "100%" }}
-              label="Nome do filme"
-              placeholder={"Ex: Oppenheimer"}
-              variant="outlined"
-              size="small"
+          <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <p style={{ fontSize: 32, width: "100%" }}>Procure por um filme</p>
+            <input
+              style={{ width: "100%", padding: "0.5rem" }}
+              placeholder="Digite o nome do filme"
               value={listFilter}
               onChange={(e) => setListFilter(e.target.value)}
             />
-            <Button
-              sx={{ px: 6, py: 1 }}
-              variant="contained"
-              color="warning"
+            <button
+              style={{ padding: "0.5rem 3rem", cursor: "pointer" }}
               onClick={handleSearch}
             >
               Buscar
-            </Button>
-          </Box>
+            </button>
+          </div>
           <MoviesTable />
-        </Box>
-      </Container>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 }
