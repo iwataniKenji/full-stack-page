@@ -1,12 +1,27 @@
 import { ArtistsTable } from "./ArtistsTable";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ListContext } from "../contexts/ListContext";
+import * as Yup from "yup";
 
 export function MainPage() {
-  const { listFilter, setListFilter } = useContext(ListContext);
+  const { setListFilter } = useContext(ListContext);
 
-  const handleSearch = () => {
-    console.log("listFilter", listFilter); // TODO -> implementar
+  const [inputText, setInputText] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const validationObject = Yup.object({
+    inputText: Yup.string().required("Campo obrigatório"),
+  });
+
+  const handleSearch = async () => {
+    try {
+      await validationObject.validate({ inputText });
+
+      setErrorMessage("");
+      setListFilter(inputText);
+    } catch (error: any) {
+      setErrorMessage(error.message);
+    }
   };
 
   return (
@@ -15,7 +30,7 @@ export function MainPage() {
         backgroundColor: "background.default",
       }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem" }}>
         <div
           style={{
             display: "flex",
@@ -24,21 +39,46 @@ export function MainPage() {
             marginTop: "2rem",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <p style={{ fontSize: 32, width: "100%" }}>Procure por um filme</p>
-            <input
-              style={{ width: "100%", padding: "0.5rem" }}
-              placeholder="Digite o nome do filme"
-              value={listFilter}
-              onChange={(e) => setListFilter(e.target.value)}
-            />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "end",
+              alignItems: "start",
+              gap: "1rem",
+            }}
+          >
+            <p
+              style={{
+                margin: "0.2rem 0",
+                fontSize: 24,
+                fontWeight: 700,
+                textTransform: "uppercase",
+              }}
+            >
+              Procure por um artista:
+            </p>
+            <div>
+              <input
+                style={{ padding: "0.5rem", width: 300 }}
+                placeholder="Digite o nome do artista"
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+              />
+              {errorMessage && (
+                <p style={{ color: "red", margin: "0.5rem 0" }}>
+                  {errorMessage}
+                </p>
+              )}
+            </div>
             <button
+              type="submit"
               style={{ padding: "0.5rem 3rem", cursor: "pointer" }}
               onClick={handleSearch}
             >
               Buscar
             </button>
           </div>
+
           <ArtistsTable />
         </div>
       </div>

@@ -3,12 +3,13 @@ import useArtistList from "../hooks/useArtistList";
 
 const tableHeadCellStyle = {
   backgroundColor: "#f2f2f2",
-  padding: "8px",
+  padding: "1rem",
   border: "1px solid #ddd",
 };
 
 const tableBodyCellStyle = {
-  padding: "8px",
+  padding: "1rem",
+  width: "50%",
   border: "1px solid #ddd",
 };
 
