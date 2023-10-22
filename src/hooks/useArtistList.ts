@@ -8,26 +8,29 @@ type HookReturn = {
 };
 
 const useArtistList = (): HookReturn => {
-  const { list, setList, listFilter, isLoading, setIsLoading } =
+  const { list, setList, pagination, listFilter, isLoading, setIsLoading } =
     useContext(ListContext);
 
   const fetchArtists = useCallback(async () => {
     try {
       setIsLoading(true);
 
+      const { skip, take } = pagination;
+
       // @ts-ignore
       DZ.api(
-        `/search/artist/?q=${listFilter}&index=0&limit=10&output=xml`,
-        function (response: any) {
+        `/search/artist/?q=${listFilter}&index=${skip}&limit=${take}&output=xml`,
+        function (response: any): void {
           if (response.data) {
             const formattedData = response.data.map((info: any) => ({
               id: info.id,
               name: info.name,
+              imageUrl: info.picture_small,
             }));
 
             setList({
               data: formattedData,
-              total: formattedData.length,
+              total: response.total,
             });
           } else {
             setList({
@@ -38,11 +41,11 @@ const useArtistList = (): HookReturn => {
         },
       );
     } catch (e) {
-      console.log(e);
+      alert("Ocorreu um erro ao buscar os artistas");
     } finally {
       setIsLoading(false);
     }
-  }, [listFilter, setList, setIsLoading]);
+  }, [listFilter, pagination, setList, setIsLoading]);
 
   useEffect(() => {
     fetchArtists();

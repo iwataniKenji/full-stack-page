@@ -5,6 +5,11 @@ type List = {
   total: number;
 };
 
+type Pagination = {
+  skip: number;
+  take: number;
+};
+
 type ListContext = {
   list: List;
   setList: (value: List) => void;
@@ -12,6 +17,8 @@ type ListContext = {
   setListFilter: (value: string) => void;
   isLoading: boolean;
   setIsLoading: (value: boolean) => void;
+  pagination: Pagination;
+  setPagination: (value: Pagination) => void;
 };
 
 type ListContextProviderProps = {
@@ -27,6 +34,10 @@ export function ListContextProvider(props: ListContextProviderProps) {
   });
   const [listFilter, setListFilter] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [pagination, setPagination] = useState<Pagination>({
+    skip: 0,
+    take: 10,
+  });
 
   const value = {
     list,
@@ -35,6 +46,8 @@ export function ListContextProvider(props: ListContextProviderProps) {
     setListFilter,
     isLoading,
     setIsLoading,
+    pagination,
+    setPagination,
   };
 
   return (

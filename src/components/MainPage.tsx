@@ -4,7 +4,7 @@ import { ListContext } from "../contexts/ListContext";
 import * as Yup from "yup";
 
 export function MainPage() {
-  const { setListFilter } = useContext(ListContext);
+  const { setListFilter, setPagination } = useContext(ListContext);
 
   const [inputText, setInputText] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -18,6 +18,7 @@ export function MainPage() {
       await validationObject.validate({ inputText });
 
       setErrorMessage("");
+      setPagination({ skip: 0, take: 10 });
       setListFilter(inputText);
     } catch (error: any) {
       setErrorMessage(error.message);
