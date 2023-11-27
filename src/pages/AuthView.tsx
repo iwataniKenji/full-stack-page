@@ -1,7 +1,16 @@
 export function AuthView() {
   return (
-    <h1>
+    <div
+      style={{
+        display: "flex",
+        width: "100vw",
+        height: "100vh",
+        margin: "0 auto",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <p>teste</p>
-    </h1>
+    </div>
   );
 }
