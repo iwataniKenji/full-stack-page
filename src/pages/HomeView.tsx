@@ -1,9 +1,9 @@
-import { ArtistsTable } from "./ArtistsTable";
+import { ArtistsTable } from "../components/ArtistsTable";
 import { useContext, useState } from "react";
 import { ListContext } from "../contexts/ListContext";
 import * as Yup from "yup";
 
-export function MainPage() {
+export function HomeView() {
   const { setListFilter, setPagination } = useContext(ListContext);
 
   const [inputText, setInputText] = useState("");

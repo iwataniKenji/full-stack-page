@@ -1,10 +1,10 @@
-import { MainPage } from "./components/MainPage";
 import { ListContextProvider } from "./contexts/ListContext";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
     <ListContextProvider>
-      <MainPage />
+      <Outlet />
     </ListContextProvider>
   );
 }
