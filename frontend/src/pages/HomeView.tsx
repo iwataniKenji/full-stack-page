@@ -20,8 +20,8 @@ export function HomeView() {
       setErrorMessage("");
       setPagination({ skip: 0, take: 10 });
       setListFilter(inputText);
-    } catch (error: any) {
-      setErrorMessage(error.message);
+    } catch (e: any) {
+      setErrorMessage(e.message);
     }
   };
 
