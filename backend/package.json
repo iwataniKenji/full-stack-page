@@ -20,10 +20,11 @@
     "express": "^4.18.2",
     "firebase": "^10.7.0",
     "jsonwebtoken": "^9.0.2",
-    "ts-node": "^10.9.1",
     "typescript": "^5.3.2"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17"
+    "@types/cors": "^2.8.17",
+    "dotenv": "^16.3.1",
+    "ts-node": "^10.9.1"
   }
 }

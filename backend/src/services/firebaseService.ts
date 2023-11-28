@@ -1,6 +1,6 @@
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { Artist } from "../types/Artist";
 
 const firebaseConfig = {
@@ -39,13 +39,31 @@ export const getArtistsData = async (): Promise<Artist[]> => {
     return [
       {
         id: "123",
-        name: "Teste",
-        imageUrl:
-          "https://upload.wikimedia.org/wikipedia/pt/2/27/Bliss_%28Windows_XP%29.png",
+        name: "BB King",
+        genre: "Blues",
       },
     ];
   } catch (e) {
     console.error("Erro ao obter dados dos artistas no Firebase:", e);
     throw e;
+  }
+};
+
+export const createArtistData = async (
+  name: string,
+  genre: string,
+): Promise<void> => {
+  try {
+    const artistData = {
+      name,
+      genre,
+    };
+
+    const newArtistRef = doc(db, "artists");
+
+    await setDoc(newArtistRef, artistData);
+  } catch (error) {
+    console.error("Erro ao criar artista no Firebase:", error);
+    throw error;
   }
 };
