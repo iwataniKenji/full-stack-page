@@ -1,12 +1,17 @@
 import { useState } from "react";
+import useDoLogin from "../hooks/useDoLogin";
 
 export function AuthView() {
+  const doLogin = useDoLogin();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = () => {
-    console.log("email:", email);
-    console.log("senha:", password);
+    const formData = { email, password };
+
+    doLogin(formData, setIsLoading);
   };
 
   return (
@@ -29,6 +34,7 @@ export function AuthView() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          disabled={isLoading}
         />
 
         <label>Senha:</label>
@@ -38,6 +44,7 @@ export function AuthView() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          disabled={isLoading}
         />
 
         <button
@@ -47,6 +54,7 @@ export function AuthView() {
             cursor: "pointer",
           }}
           onClick={handleLogin}
+          disabled={isLoading}
         >
           Login
         </button>
