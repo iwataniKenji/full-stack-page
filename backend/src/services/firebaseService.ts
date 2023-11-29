@@ -1,6 +1,7 @@
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { Artist } from "../types/Artist";
 
 const firebaseConfig = {
@@ -18,16 +19,17 @@ const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
 export const authenticateUser = async (
-  username: string,
+  email: string,
   password: string,
 ): Promise<boolean> => {
   try {
-    const userDoc = await getDoc(doc(db, "users", username));
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password,
+    );
 
-    const userExists = userDoc.exists();
-    const passwordMatches = userDoc.data()?.password === password;
-
-    return userExists && passwordMatches;
+    return true;
   } catch (e) {
     console.error("Erro ao autenticar usuário no firebase:", e);
     throw e;

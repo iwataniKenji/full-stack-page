@@ -5,16 +5,16 @@ import jwt from "jsonwebtoken";
 const secretKey = process.env.JWT_SECRET || "secret";
 
 export const login = async (req: Request, res: Response) => {
-  const { username, password } = req.body as {
-    username: string;
+  const { email, password } = req.body as {
+    email: string;
     password: string;
   };
 
   try {
-    const isAuthenticated = await authenticateUser(username, password);
+    const isAuthenticated = await authenticateUser(email, password);
 
     if (isAuthenticated) {
-      const token = jwt.sign({ username }, secretKey, {
+      const token = jwt.sign({ email }, secretKey, {
         expiresIn: "1h",
       });
 
