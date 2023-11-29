@@ -1,6 +1,6 @@
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Artist } from "../types/Artist";
 
@@ -23,11 +23,7 @@ export const authenticateUser = async (
   password: string,
 ): Promise<boolean> => {
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password,
-    );
+    await signInWithEmailAndPassword(auth, email, password);
 
     return true;
   } catch (e) {
@@ -38,13 +34,23 @@ export const authenticateUser = async (
 
 export const getArtistsData = async (): Promise<Artist[]> => {
   try {
-    return [
-      {
-        id: "123",
-        name: "BB King",
-        genre: "Blues",
-      },
-    ];
+    const artistsCollection = collection(db, "artists");
+    const querySnapshot = await getDocs(artistsCollection);
+
+    const artistsData: Artist[] = [];
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      const artist: Artist = {
+        id: doc.id,
+        name: data.name,
+        genre: data.genre,
+      };
+      artistsData.push(artist);
+    });
+
+    return artistsData;
   } catch (e) {
     console.error("Erro ao obter dados dos artistas no Firebase:", e);
     throw e;
@@ -56,14 +62,11 @@ export const createArtistData = async (
   genre: string,
 ): Promise<void> => {
   try {
-    const artistData = {
-      name,
-      genre,
-    };
+    const artistData = { name, genre };
 
-    const newArtistRef = doc(db, "artists");
+    const artistsCollection = collection(db, "artists");
 
-    await setDoc(newArtistRef, artistData);
+    await addDoc(artistsCollection, artistData);
   } catch (error) {
     console.error("Erro ao criar artista no Firebase:", error);
     throw error;
