@@ -1,14 +1,15 @@
 import { useState } from "react";
+import useCreateProduct from "../hooks/useCreateArtist";
 
 export function CreateUserSection() {
+  const createArtist = useCreateProduct();
+
   const [name, setName] = useState("");
   const [genre, setGenre] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCreate = () => {
-    const formData = { name, genre };
-
-    console.log("formData", formData);
+    createArtist({ name, genre }, setIsLoading);
   };
 
   return (
@@ -38,7 +39,7 @@ export function CreateUserSection() {
           gap: "0.25rem",
         }}
       >
-        <label>Nome do artista:</label>
+        <label>Nome:</label>
 
         <input
           placeholder="Digite o nome do artista"
@@ -57,7 +58,7 @@ export function CreateUserSection() {
           gap: "0.25rem",
         }}
       >
-        <label>Gênero</label>
+        <label>Gênero musical</label>
         <input
           placeholder="Digite o gênero musical"
           style={{ padding: "0.5rem", width: 200 }}
