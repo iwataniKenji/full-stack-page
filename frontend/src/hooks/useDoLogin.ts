@@ -23,7 +23,7 @@ const useDoLogin = (): HookReturn => {
 
       navigate("/home", { replace: true });
     } catch (error: any) {
-      alert(error);
+      alert(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
