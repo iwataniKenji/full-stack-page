@@ -3,6 +3,7 @@ import { ArtistsTable } from "./ArtistsTable";
 import { ListContext } from "../contexts/ListContext";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { CreateUserSection } from "./CreateUserSection";
 
 export function MainSection() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ export function MainSection() {
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "2rem",
+            gap: "2.5rem",
             marginTop: "2rem",
           }}
         >
@@ -75,6 +76,8 @@ export function MainSection() {
               Sair
             </button>
           </div>
+
+          <CreateUserSection />
 
           <div
             style={{
