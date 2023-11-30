@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useCreateProduct from "../hooks/useCreateArtist";
+import { ListContext } from "../contexts/ListContext";
 
 export function CreateUserSection() {
   const createArtist = useCreateProduct();
 
+  const { isLoading } = useContext(ListContext);
+
   const [name, setName] = useState("");
   const [genre, setGenre] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleCreate = () => {
-    createArtist({ name, genre }, setIsLoading);
+    createArtist({ name, genre });
   };
 
   return (

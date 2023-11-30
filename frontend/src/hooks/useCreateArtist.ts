@@ -1,16 +1,14 @@
 import { CreateArtistFormData } from "../types/CreateArtistFormData";
+import { useContext } from "react";
+import { ListContext } from "../contexts/ListContext";
 import api from "../services/api";
 
-type HookReturn = (
-  formData: CreateArtistFormData,
-  setIsLoading: (value: boolean) => void,
-) => void;
+type HookReturn = (formData: CreateArtistFormData) => void;
 
 const useCreateProduct = (): HookReturn => {
-  return async (
-    formData: CreateArtistFormData,
-    setIsLoading: (value: boolean) => void,
-  ): Promise<void> => {
+  const { list, setList, setIsLoading } = useContext(ListContext);
+
+  return async (formData: CreateArtistFormData): Promise<void> => {
     try {
       setIsLoading(true);
 
@@ -20,7 +18,12 @@ const useCreateProduct = (): HookReturn => {
         return;
       }
 
-      await api.createArtist(formData);
+      const newArtist = await api.createArtist(formData);
+
+      setList({
+        data: [...list.data, newArtist],
+        total: list.total + 1,
+      });
     } catch (error: any) {
       console.log("error", error);
 

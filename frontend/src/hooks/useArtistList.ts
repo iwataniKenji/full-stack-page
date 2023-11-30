@@ -1,15 +1,15 @@
-import { useCallback, useEffect, useState } from "react";
-import { Artist } from "../types/Artist";
+import { useCallback, useContext, useEffect } from "react";
 import api from "../services/api";
+import { ListContext } from "../contexts/ListContext";
+import { ListProps } from "../types/ListProps";
 
 type HookReturn = {
-  artists: any[];
+  artists: ListProps;
   isLoading: boolean;
 };
 
 const useArtistList = (): HookReturn => {
-  const [list, setList] = useState<Artist[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { list, setList, isLoading, setIsLoading } = useContext(ListContext);
 
   const fetchArtists = useCallback(async () => {
     try {
@@ -17,7 +17,10 @@ const useArtistList = (): HookReturn => {
 
       const artists = await api.findAllArtists();
 
-      setList(artists);
+      setList({
+        data: artists,
+        total: artists.length,
+      });
     } catch (error) {
       console.log("error", error);
 

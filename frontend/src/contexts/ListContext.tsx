@@ -1,9 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-
-type ListProps = {
-  data: any[];
-  total: number;
-};
+import { ListProps } from "../types/ListProps";
 
 type PaginationProps = {
   skip: number;

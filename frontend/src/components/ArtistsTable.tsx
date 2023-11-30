@@ -18,7 +18,7 @@ export function ArtistsTable() {
   const { artists, isLoading } = useArtistList();
 
   const rows = useMemo(() => {
-    if (artists.length === 0) {
+    if (artists.total === 0) {
       return (
         <tr>
           <td style={tableBodyCellStyle} colSpan={3}>
@@ -30,7 +30,7 @@ export function ArtistsTable() {
 
     return (
       <>
-        {artists.map((artist) => (
+        {artists.data.map((artist) => (
           <tr key={artist.id}>
             <td style={tableBodyCellStyle}>{artist.id}</td>
             <td style={tableBodyCellStyle}>{artist.name}</td>
