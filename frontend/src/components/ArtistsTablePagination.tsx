@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { ListContext } from "../contexts/ListContext";
 
 export function ArtistsTablePagination() {
-  const { list, pagination, setPagination } = useContext(ListContext);
+  const { list, pagination, isLoading, setPagination } =
+    useContext(ListContext);
   const { take, skip } = pagination;
 
   const currentPage = Math.floor(skip / take) + 1;
@@ -36,7 +37,7 @@ export function ArtistsTablePagination() {
           cursor: prevButtonIsDisabled ? "not-allowed" : "pointer",
         }}
         onClick={() => handlePageChange(currentPage - 1)}
-        disabled={prevButtonIsDisabled}
+        disabled={prevButtonIsDisabled || isLoading}
       >
         Anterior
       </button>
@@ -46,7 +47,7 @@ export function ArtistsTablePagination() {
           cursor: nextButtonIsDisabled ? "not-allowed" : "pointer",
         }}
         onClick={() => handlePageChange(currentPage + 1)}
-        disabled={nextButtonIsDisabled}
+        disabled={nextButtonIsDisabled || isLoading}
       >
         Próxima
       </button>

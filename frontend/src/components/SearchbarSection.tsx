@@ -3,7 +3,7 @@ import { ListContext } from "../contexts/ListContext";
 import * as Yup from "yup";
 
 export function SearchbarSection() {
-  const { setListFilter, setPagination } = useContext(ListContext);
+  const { setListFilter, setPagination, isLoading } = useContext(ListContext);
 
   const [inputText, setInputText] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -58,6 +58,7 @@ export function SearchbarSection() {
         type="submit"
         style={{ padding: "0.5rem 3rem", cursor: "pointer" }}
         onClick={handleSearch}
+        disabled={isLoading}
       >
         Buscar
       </button>
