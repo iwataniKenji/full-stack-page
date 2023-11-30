@@ -45,12 +45,7 @@ export const getArtistsData = async (
   try {
     const artistsCollection = collection(db, "artists");
 
-    let artistsQuery = query(artistsCollection);
-
-    if (listFilter) {
-      artistsQuery = query(artistsCollection, where("name", "==", listFilter));
-    }
-
+    const artistsQuery = query(artistsCollection);
     const querySnapshot = await getDocs(artistsQuery);
 
     const artistsData: Artist[] = [];
@@ -66,6 +61,12 @@ export const getArtistsData = async (
 
       artistsData.push(artist);
     });
+
+    if (listFilter) {
+      return artistsData.filter((artist) =>
+        artist.name.toLowerCase().includes(listFilter?.toLowerCase()),
+      );
+    }
 
     return artistsData;
   } catch (e) {

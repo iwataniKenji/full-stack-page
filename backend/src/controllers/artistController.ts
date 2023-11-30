@@ -5,8 +5,10 @@ export const getArtists = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
+  const { listFilter } = req.query as any;
+
   try {
-    const artists = await getArtistsData();
+    const artists = await getArtistsData(listFilter);
 
     res.json({ artists });
   } catch (e) {

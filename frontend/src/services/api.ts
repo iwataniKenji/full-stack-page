@@ -24,14 +24,17 @@ async function createArtist(formData: CreateArtistFormData): Promise<Artist> {
   return response.data.artist;
 }
 
-async function findAllArtists(): Promise<Artist[]> {
+async function findAllArtists(listFilter: string): Promise<Artist[]> {
   const client = httpClient();
 
   const token = sessionStorage.getItem("token");
 
   const response = await client.get<any>(
     `${process.env.REACT_APP_API_URL}/artist`,
-    { headers: { Authorization: `Bearer ${token}` } },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+      params: { listFilter },
+    },
   );
 
   return response.data.artists;
