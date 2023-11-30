@@ -24,6 +24,12 @@ export const createArtist = async (
   const { name, genre } = req.body as { name: string; genre: string };
 
   try {
+    if (!name || !genre) {
+      res.status(400).json({ message: "Dados incompletos" });
+
+      return;
+    }
+
     const newArtist = await createArtistData(name, genre);
 
     res.json({ artist: newArtist });

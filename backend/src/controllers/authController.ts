@@ -11,6 +11,12 @@ export const login = async (req: Request, res: Response) => {
   };
 
   try {
+    if (!email || !password) {
+      res.status(400).json({ message: "Dados incompletos" });
+
+      return;
+    }
+
     const isAuthenticated = await authenticateUser(email, password);
 
     if (isAuthenticated) {
