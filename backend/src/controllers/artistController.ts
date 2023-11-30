@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import { createArtistData, getArtistsData } from "../services/firebaseService";
 
-export const getArtists = async (req: Request, res: Response) => {
+export const getArtists = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const artists = await getArtistsData();
 
@@ -19,9 +22,9 @@ export const createArtist = async (
   const { name, genre } = req.body as { name: string; genre: string };
 
   try {
-    await createArtistData(name, genre);
+    const newArtist = await createArtistData(name, genre);
 
-    res.status(201).json({ message: "Artista criado com sucesso" });
+    res.json({ artist: newArtist });
   } catch (error) {
     console.error("Erro ao criar artista:", error);
     res.status(500).json({ message: "Erro ao criar artista" });

@@ -10,7 +10,7 @@ function httpClient(): AxiosInstance {
   });
 }
 
-async function createArtist(formData: CreateArtistFormData): Promise<any> {
+async function createArtist(formData: CreateArtistFormData): Promise<Artist> {
   const client = httpClient();
 
   const token = sessionStorage.getItem("token");
@@ -21,7 +21,7 @@ async function createArtist(formData: CreateArtistFormData): Promise<any> {
     { headers: { Authorization: `Bearer ${token}` } },
   );
 
-  return response.data;
+  return response.data.artist;
 }
 
 async function findAllArtists(): Promise<Artist[]> {

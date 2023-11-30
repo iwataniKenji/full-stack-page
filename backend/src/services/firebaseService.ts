@@ -1,7 +1,12 @@
-import { getAuth } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  addDoc,
+  collection,
+  DocumentReference,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore";
 import { Artist } from "../types/Artist";
 
 const firebaseConfig = {
@@ -47,6 +52,7 @@ export const getArtistsData = async (): Promise<Artist[]> => {
         name: data.name,
         genre: data.genre,
       };
+
       artistsData.push(artist);
     });
 
@@ -60,13 +66,22 @@ export const getArtistsData = async (): Promise<Artist[]> => {
 export const createArtistData = async (
   name: string,
   genre: string,
-): Promise<void> => {
+): Promise<Artist> => {
   try {
     const artistData = { name, genre };
 
     const artistsCollection = collection(db, "artists");
 
-    await addDoc(artistsCollection, artistData);
+    const newArtistRef: DocumentReference = await addDoc(
+      artistsCollection,
+      artistData,
+    );
+
+    return {
+      id: newArtistRef.id,
+      name,
+      genre,
+    };
   } catch (error) {
     console.error("Erro ao criar artista no Firebase:", error);
     throw error;
