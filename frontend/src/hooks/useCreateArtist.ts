@@ -3,12 +3,20 @@ import { useContext } from "react";
 import { ListContext } from "../contexts/ListContext";
 import api from "../services/api";
 
-type HookReturn = (formData: CreateArtistFormData) => void;
+type HookReturn = (
+  formData: CreateArtistFormData,
+  setName: (value: string) => void,
+  setGenre: (value: string) => void,
+) => void;
 
 const useCreateProduct = (): HookReturn => {
   const { list, setList, setIsLoading } = useContext(ListContext);
 
-  return async (formData: CreateArtistFormData): Promise<void> => {
+  return async (
+    formData: CreateArtistFormData,
+    setName: (value: string) => void,
+    setGenre: (value: string) => void,
+  ): Promise<void> => {
     try {
       setIsLoading(true);
 
@@ -24,6 +32,9 @@ const useCreateProduct = (): HookReturn => {
         data: [...list.data, newArtist],
         total: list.total + 1,
       });
+
+      setName("");
+      setGenre("");
     } catch (error: any) {
       console.log("error", error);
 

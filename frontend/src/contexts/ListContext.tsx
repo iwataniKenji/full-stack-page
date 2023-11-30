@@ -1,11 +1,6 @@
 import { createContext, ReactNode, useState } from "react";
 import { ListProps } from "../types/ListProps";
 
-type PaginationProps = {
-  skip: number;
-  take: number;
-};
-
 type ListContextProps = {
   list: ListProps;
   setList: (value: ListProps) => void;
@@ -13,8 +8,6 @@ type ListContextProps = {
   setListFilter: (value: string) => void;
   isLoading: boolean;
   setIsLoading: (value: boolean) => void;
-  pagination: PaginationProps;
-  setPagination: (value: PaginationProps) => void;
 };
 
 type ListContextProviderProps = {
@@ -30,10 +23,6 @@ export function ListContextProvider(props: ListContextProviderProps) {
   });
   const [listFilter, setListFilter] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [pagination, setPagination] = useState<PaginationProps>({
-    skip: 0,
-    take: 10,
-  });
 
   const value = {
     list,
@@ -42,8 +31,6 @@ export function ListContextProvider(props: ListContextProviderProps) {
     setListFilter,
     isLoading,
     setIsLoading,
-    pagination,
-    setPagination,
   };
 
   return (

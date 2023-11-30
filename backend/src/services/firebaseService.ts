@@ -6,6 +6,8 @@ import {
   DocumentReference,
   getDocs,
   getFirestore,
+  query,
+  where,
 } from "firebase/firestore";
 import { Artist } from "../types/Artist";
 
@@ -37,10 +39,19 @@ export const authenticateUser = async (
   }
 };
 
-export const getArtistsData = async (): Promise<Artist[]> => {
+export const getArtistsData = async (
+  listFilter?: string,
+): Promise<Artist[]> => {
   try {
     const artistsCollection = collection(db, "artists");
-    const querySnapshot = await getDocs(artistsCollection);
+
+    let artistsQuery = query(artistsCollection);
+
+    if (listFilter) {
+      artistsQuery = query(artistsCollection, where("name", "==", listFilter));
+    }
+
+    const querySnapshot = await getDocs(artistsQuery);
 
     const artistsData: Artist[] = [];
 

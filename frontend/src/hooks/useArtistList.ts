@@ -9,13 +9,14 @@ type HookReturn = {
 };
 
 const useArtistList = (): HookReturn => {
-  const { list, setList, isLoading, setIsLoading } = useContext(ListContext);
+  const { list, setList, listFilter, isLoading, setIsLoading } =
+    useContext(ListContext);
 
   const fetchArtists = useCallback(async () => {
     try {
       setIsLoading(true);
 
-      const artists = await api.findAllArtists();
+      const artists = await api.findAllArtists(listFilter);
 
       setList({
         data: artists,
@@ -28,7 +29,7 @@ const useArtistList = (): HookReturn => {
     } finally {
       setIsLoading(false);
     }
-  }, [setList, setIsLoading]);
+  }, [setList, setIsLoading, listFilter]);
 
   useEffect(() => {
     fetchArtists();

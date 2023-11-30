@@ -11,7 +11,7 @@ export function CreateUserSection() {
   const [genre, setGenre] = useState("");
 
   const handleCreate = () => {
-    createArtist({ name, genre });
+    createArtist({ name, genre }, setName, setGenre);
   };
 
   return (

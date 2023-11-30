@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { ArtistsTablePagination } from "./ArtistsTablePagination";
 import useArtistList from "../hooks/useArtistList";
 
 const tableHeadCellStyle = {
@@ -63,7 +62,7 @@ export function ArtistsTable() {
             </thead>
             <tbody>{rows}</tbody>
           </table>
-          <ArtistsTablePagination />
+          <div style={{ paddingBottom: 60 }} />
         </div>
       )}
     </div>
