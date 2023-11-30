@@ -24,7 +24,7 @@ const useCreateProduct = (): HookReturn => {
     } catch (error: any) {
       console.log("error", error);
 
-      alert(error.response.data.message);
+      alert("Ocorreu um erro ao criar o artista");
     } finally {
       setIsLoading(false);
     }

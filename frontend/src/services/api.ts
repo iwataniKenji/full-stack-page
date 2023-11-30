@@ -34,7 +34,7 @@ async function findAllArtists(): Promise<Artist[]> {
     { headers: { Authorization: `Bearer ${token}` } },
   );
 
-  return response.data;
+  return response.data.artists;
 }
 
 async function auth(authFormData: AuthFormData): Promise<{ token: string }> {

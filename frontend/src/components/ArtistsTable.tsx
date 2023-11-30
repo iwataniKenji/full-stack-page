@@ -10,7 +10,7 @@ const tableHeadCellStyle = {
 
 const tableBodyCellStyle = {
   padding: "1rem",
-  width: "50%",
+  width: "33%",
   border: "1px solid #ddd",
 };
 
@@ -34,9 +34,7 @@ export function ArtistsTable() {
           <tr key={artist.id}>
             <td style={tableBodyCellStyle}>{artist.id}</td>
             <td style={tableBodyCellStyle}>{artist.name}</td>
-            <td style={{ ...tableBodyCellStyle, padding: "0.25rem" }}>
-              <img src={artist.imageUrl} alt={artist.name} />
-            </td>
+            <td style={tableBodyCellStyle}>{artist.genre}</td>
           </tr>
         ))}
       </>
@@ -60,7 +58,7 @@ export function ArtistsTable() {
               <tr>
                 <th style={tableHeadCellStyle}>Id</th>
                 <th style={tableHeadCellStyle}>Artista</th>
-                <th style={tableHeadCellStyle}>Img</th>
+                <th style={tableHeadCellStyle}>Gênero Musical</th>
               </tr>
             </thead>
             <tbody>{rows}</tbody>
