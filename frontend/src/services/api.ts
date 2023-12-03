@@ -51,15 +51,8 @@ async function auth(authFormData: AuthFormData): Promise<string> {
   return response.data;
 }
 
-async function logout(): Promise<void> {
-  const client = httpClient();
-
-  await client.post<void>(`${process.env.REACT_APP_API_URL}/auth/logout`);
-}
-
 const api = {
   auth,
-  logout,
   createArtist,
   findAllArtists,
 };

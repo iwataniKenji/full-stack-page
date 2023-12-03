@@ -33,7 +33,7 @@ export function cacheRoute(req: Request, res: Response, next: NextFunction) {
 }
 
 export function storeCache(key: string, value: string): void {
-  const seconds = 60;
+  const seconds = 60; // 1 minuto
 
   // armazena valor em cache
   redisClient.setEx(key, seconds, value).then((r) => console.log(r));
@@ -55,12 +55,7 @@ app.use(
 app.use(express.json());
 
 app.use("/auth", cacheRoute, authRoutes);
-app.use(
-  "/artist",
-  // ensureAuthenticated,
-  cacheRoute,
-  artistRoutes,
-);
+app.use("/artist", ensureAuthenticated, cacheRoute, artistRoutes);
 
 redisClient.on("error", (err) => console.log("Redis client error", err));
 redisClient.connect().then(() => console.log("Redis client conectado"));
