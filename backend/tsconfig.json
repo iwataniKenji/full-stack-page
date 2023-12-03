@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "ES2018",
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
@@ -9,5 +9,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node"
-  }
+  },
+  "exclude": ["node_modules"]
 }
