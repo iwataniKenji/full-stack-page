@@ -15,11 +15,9 @@ async function createArtist(formData: CreateArtistFormData): Promise<Artist> {
 
   const token = sessionStorage.getItem("token");
 
-  const response = await client.post<Artist>(
-    `${process.env.REACT_APP_API_URL}/artist`,
-    formData,
-    { headers: { Authorization: `Bearer ${token}` } },
-  );
+  const response = await client.post<Artist>("/artist", formData, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   return response.data;
 }
@@ -29,13 +27,10 @@ async function findAllArtists(listFilter: string): Promise<Artist[]> {
 
   const token = sessionStorage.getItem("token");
 
-  const response = await client.get<Artist[]>(
-    `${process.env.REACT_APP_API_URL}/artist`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-      params: { listFilter },
-    },
-  );
+  const response = await client.get<Artist[]>("/artist", {
+    headers: { Authorization: `Bearer ${token}` },
+    params: { listFilter },
+  });
 
   return response.data;
 }
@@ -43,10 +38,7 @@ async function findAllArtists(listFilter: string): Promise<Artist[]> {
 async function auth(authFormData: AuthFormData): Promise<string> {
   const client = httpClient();
 
-  const response = await client.post<string>(
-    `${process.env.REACT_APP_API_URL}/auth/login`,
-    authFormData,
-  );
+  const response = await client.post<string>("/auth/login", authFormData);
 
   return response.data;
 }
