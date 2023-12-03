@@ -35,7 +35,7 @@ app.use("/artist", ensureAuthenticated, cacheRoute, artistRoutes);
 
 // conexão com websocket
 webSocketServer.on("connection", (ws: WebSocket) => {
-  console.log("webSocket conectado");
+  console.log("WebSocket conectado");
   connectedClients.add(ws);
 
   ws.on("message", (message: string): void => {
@@ -45,7 +45,7 @@ webSocketServer.on("connection", (ws: WebSocket) => {
   });
 
   ws.on("close", () => {
-    console.log("webSocket desconectado");
+    console.log("WebSocket desconectado");
     connectedClients.delete(ws);
   });
 });

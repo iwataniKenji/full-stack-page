@@ -89,7 +89,7 @@ export const createArtistData = async (
       artistData,
     );
 
-    // Enviar mensagem para o Websocket -> RabbitMQ
+    // enviar mensagem para o Websocket -> RabbitMQ
     connectedClients.forEach((client) => {
       client.send(`Artista ${name} foi criado`);
     });
