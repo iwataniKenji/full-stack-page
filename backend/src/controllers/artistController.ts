@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { createArtistData, getArtistsData } from "../services/firebaseService";
-import { invalidateCache, storeCache } from "../index";
+import { invalidateCache, storeCache } from "../services/redisService";
 
 export const getArtists = async (
   req: Request,
