@@ -44,7 +44,6 @@ export const getArtistsData = async (
 ): Promise<Artist[]> => {
   try {
     const artistsCollection = collection(db, "artists");
-
     const artistsQuery = query(artistsCollection);
     const querySnapshot = await getDocs(artistsQuery);
 
@@ -63,6 +62,10 @@ export const getArtistsData = async (
     });
 
     if (listFilter) {
+      const logDescription = `Foi realizado uma busca com a string: '${listFilter}'`;
+      const logsCollection = collection(db, "logs");
+      await addDoc(logsCollection, { description: logDescription });
+
       return artistsData.filter((artist) =>
         artist.name.toLowerCase().includes(listFilter?.toLowerCase()),
       );

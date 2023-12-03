@@ -9,7 +9,7 @@ export function SearchbarSection() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const validationObject = Yup.object({
-    inputText: Yup.string().required("Campo obrigatório"),
+    inputText: Yup.string(),
   });
 
   const handleSearch = async () => {
