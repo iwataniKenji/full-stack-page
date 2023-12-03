@@ -1,16 +1,10 @@
 import { CreateUserSection } from "../module-components/CreateUserSection";
 import { SearchbarSection } from "../module-components/SearchbarSection";
 import { ArtistsTable } from "../module-components/ArtistsTable";
-import { useNavigate } from "react-router-dom";
+import { LogoutSection } from "../module-components/LogoutSection";
 
 export function HomeView() {
-  const navigate = useNavigate();
   const authToken = sessionStorage.getItem("token");
-
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    navigate("/auth");
-  };
 
   if (!authToken) {
     return (
@@ -42,33 +36,7 @@ export function HomeView() {
             marginTop: "2rem",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              alignItems: "start",
-              gap: "1rem",
-            }}
-          >
-            <p
-              style={{
-                margin: "0.2rem 0",
-                fontSize: 24,
-                fontWeight: 700,
-              }}
-            >
-              Olá, Usuário
-            </p>
-            <button
-              style={{
-                padding: "0.5rem 3rem",
-                cursor: "pointer",
-              }}
-              onClick={handleLogout}
-            >
-              Sair
-            </button>
-          </div>
+          <LogoutSection />
           <CreateUserSection />
           <SearchbarSection />
           <ArtistsTable />

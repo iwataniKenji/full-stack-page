@@ -19,7 +19,7 @@ const useDoLogin = (): HookReturn => {
 
       const response = await api.auth(authFormData);
 
-      sessionStorage.setItem("token", response.token);
+      sessionStorage.setItem("token", response);
 
       navigate("/home", { replace: true });
     } catch (error: any) {

@@ -15,7 +15,7 @@ async function createArtist(formData: CreateArtistFormData): Promise<Artist> {
 
   const token = sessionStorage.getItem("token");
 
-  const response = await client.post<any>(
+  const response = await client.post<Artist>(
     `${process.env.REACT_APP_API_URL}/artist`,
     formData,
     { headers: { Authorization: `Bearer ${token}` } },
@@ -29,7 +29,7 @@ async function findAllArtists(listFilter: string): Promise<Artist[]> {
 
   const token = sessionStorage.getItem("token");
 
-  const response = await client.get<any>(
+  const response = await client.get<Artist[]>(
     `${process.env.REACT_APP_API_URL}/artist`,
     {
       headers: { Authorization: `Bearer ${token}` },
@@ -40,10 +40,10 @@ async function findAllArtists(listFilter: string): Promise<Artist[]> {
   return response.data;
 }
 
-async function auth(authFormData: AuthFormData): Promise<{ token: string }> {
+async function auth(authFormData: AuthFormData): Promise<string> {
   const client = httpClient();
 
-  const response = await client.post<{ token: string }>(
+  const response = await client.post<string>(
     `${process.env.REACT_APP_API_URL}/auth/login`,
     authFormData,
   );
@@ -51,8 +51,15 @@ async function auth(authFormData: AuthFormData): Promise<{ token: string }> {
   return response.data;
 }
 
+async function logout(): Promise<void> {
+  const client = httpClient();
+
+  await client.post<void>(`${process.env.REACT_APP_API_URL}/auth/logout`);
+}
+
 const api = {
   auth,
+  logout,
   createArtist,
   findAllArtists,
 };
