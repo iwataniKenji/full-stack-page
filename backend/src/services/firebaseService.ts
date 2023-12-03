@@ -7,9 +7,9 @@ import {
   getDocs,
   getFirestore,
   query,
-  where,
 } from "firebase/firestore";
 import { Artist } from "../types/Artist";
+import { connectedClients } from "../index";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -88,6 +88,11 @@ export const createArtistData = async (
       artistsCollection,
       artistData,
     );
+
+    // Enviar mensagem para o Websocket -> RabbitMQ
+    connectedClients.forEach((client) => {
+      client.send(`Artista ${name} foi criado`);
+    });
 
     return {
       id: newArtistRef.id,
