@@ -21,7 +21,7 @@ async function createArtist(formData: CreateArtistFormData): Promise<Artist> {
     { headers: { Authorization: `Bearer ${token}` } },
   );
 
-  return response.data.artist;
+  return response.data;
 }
 
 async function findAllArtists(listFilter: string): Promise<Artist[]> {
@@ -37,7 +37,7 @@ async function findAllArtists(listFilter: string): Promise<Artist[]> {
     },
   );
 
-  return response.data.artists;
+  return response.data;
 }
 
 async function auth(authFormData: AuthFormData): Promise<{ token: string }> {

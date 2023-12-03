@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { createArtistData, getArtistsData } from "../services/firebaseService";
+import { invalidateCache, storeCache } from "../index";
 
 export const getArtists = async (
   req: Request,
@@ -10,7 +11,9 @@ export const getArtists = async (
   try {
     const artists = await getArtistsData(listFilter);
 
-    res.json({ artists });
+    storeCache(req.originalUrl, JSON.stringify(artists));
+
+    res.json(artists);
   } catch (e) {
     console.error("Erro ao obter listagem de artistas:", e);
     res.status(500).json({ message: "Erro ao obter listagem de artistas" });
@@ -32,7 +35,9 @@ export const createArtist = async (
 
     const newArtist = await createArtistData(name, genre);
 
-    res.json({ artist: newArtist });
+    invalidateCache(req.originalUrl);
+
+    res.json(newArtist);
   } catch (error) {
     console.error("Erro ao criar artista:", error);
     res.status(500).json({ message: "Erro ao criar artista" });
