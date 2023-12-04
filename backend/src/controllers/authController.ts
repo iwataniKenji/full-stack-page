@@ -21,7 +21,7 @@ export const login = async (req: Request, res: Response) => {
 
     if (isAuthenticated) {
       const token = jwt.sign({ email }, SECRET_KEY, {
-        expiresIn: "1h",
+        expiresIn: "10m",
       });
 
       res.json(token);
