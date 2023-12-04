@@ -5,6 +5,7 @@ import WebSocket from "ws";
 import authRoutes from "./routes/authRoutes";
 import artistRoutes from "./routes/artistRoutes";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
 import { createClient } from "redis";
 import { cacheRoute } from "./services/redisService";
@@ -19,6 +20,14 @@ const webSocketServer = new WebSocket.Server({ server });
 
 export const connectedClients = new Set<WebSocket>();
 export const redisClient = createClient();
+
+const limiter = rateLimit({
+  windowMs: 10 * 1000, // intervalo de 10 segundos
+  limit: 10, // máximo de solicitações para o mesmo ip no intervalo
+  message: "Você atingiu o limite de solicitações. Tente novamente mais tarde.",
+});
+
+app.use(limiter);
 
 app.use(
   cors({

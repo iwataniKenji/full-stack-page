@@ -567,6 +567,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/express-rate-limit@^6.0.0":
+  "integrity" "sha512-nZxo3nwU20EkTl/f2eGdndQkDIJYwkXIX4S3Vrp2jMdSdFJ6AWtIda8gOz0wiMuOFoeH/UUlCAiacz3x3eWNFA=="
+  "resolved" "https://registry.npmjs.org/@types/express-rate-limit/-/express-rate-limit-6.0.0.tgz"
+  "version" "6.0.0"
+  dependencies:
+    "express-rate-limit" "*"
+
 "@types/express-serve-static-core@^4.17.33":
   "integrity" "sha512-OaJ7XLaelTgrvlZD8/aa0vvvxZdUmlCn6MtWeB7TkiKW70BQLc9XEPpDLPdbo52ZhXUCrznlWdCHWxJWtdyajA=="
   "resolved" "https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-4.17.41.tgz"
@@ -987,7 +994,12 @@
   "resolved" "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz"
   "version" "1.8.1"
 
-"express@^4.18.2":
+"express-rate-limit@*", "express-rate-limit@^7.1.5":
+  "integrity" "sha512-/iVogxu7ueadrepw1bS0X0kaRC/U0afwiYRSLg68Ts+p4Dc85Q5QKsOnPS/QUjPMHvOJQtBDrZgvkOzf8ejUYw=="
+  "resolved" "https://registry.npmjs.org/express-rate-limit/-/express-rate-limit-7.1.5.tgz"
+  "version" "7.1.5"
+
+"express@^4.18.2", "express@4 || 5 || ^5.0.0-beta.1":
   "integrity" "sha512-5/PsL6iGPdfQ/lKM1UuielYgv3BUoJfz1aUwU9vHZ+J7gyvwdQXFEBIEIaxeGf0GIcreATNyBExtalisDbuMqQ=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.18.2.tgz"
   "version" "4.18.2"
