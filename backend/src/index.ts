@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoutes";
 import artistRoutes from "./routes/artistRoutes";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
+import helmet from "helmet";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
 import { createClient } from "redis";
 import { cacheRoute } from "./services/redisService";
@@ -28,6 +29,7 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+app.use(helmet());
 
 app.use(
   cors({
@@ -35,6 +37,12 @@ app.use(
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     allowedHeaders: "Authorization, Content-Type, Accept",
+  }),
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+    },
   }),
 );
 
