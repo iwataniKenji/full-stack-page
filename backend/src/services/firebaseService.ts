@@ -34,7 +34,20 @@ export const authenticateUser = async (
 
     return true;
   } catch (e) {
+    await generateAuthLog(email);
     console.error("Erro ao autenticar usuário no firebase:", e);
+    throw e;
+  }
+};
+
+export const generateAuthLog = async (email: string): Promise<void> => {
+  try {
+    const logDescription = `Foi realizado uma tentativa falha para autenticação com o e-mail ${email}`;
+    const logsCollection = collection(db, "auth_logs");
+
+    await addDoc(logsCollection, { description: logDescription });
+  } catch (e) {
+    console.error("Erro ao gerar log de autenticação no Firebase:", e);
     throw e;
   }
 };
