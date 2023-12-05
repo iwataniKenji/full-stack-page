@@ -7,6 +7,7 @@ import artistRoutes from "./routes/artistRoutes";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
+import bodyParser from "body-parser";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
 import { createClient } from "redis";
 import { cacheRoute } from "./services/redisService";
@@ -30,6 +31,9 @@ const limiter = rateLimit({
 
 app.use(limiter);
 app.use(helmet());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   cors({
