@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { createArtistData, getArtistsData } from "../services/firebaseService";
 import { invalidateCache, storeCache } from "../services/redisService";
+import { validationResult } from "express-validator";
 
 export const getArtists = async (
   req: Request,
@@ -20,10 +21,13 @@ export const getArtists = async (
   }
 };
 
-export const createArtist = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
+export const createArtist = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array()[0].msg });
+  }
+
   const { name, genre } = req.body as { name: string; genre: string };
 
   try {

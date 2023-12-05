@@ -1,10 +1,17 @@
 import { Request, Response } from "express";
 import { authenticateUser } from "../services/firebaseService";
+import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 
 const SECRET_KEY = process.env.JWT_SECRET || "secret";
 
 export const login = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array()[0].msg });
+  }
+
   const { email, password } = req.body as {
     email: string;
     password: string;
